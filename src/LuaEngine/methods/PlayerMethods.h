@@ -317,6 +317,71 @@ namespace LuaPlayer
     }
 
     /**
+     * Returns the number of free slots in the [Player]'s inventory (backpack and equipped bags).
+     *
+     * @return uint32 freeSlots
+     */
+    int GetInventoryFreeSlots(lua_State* L, Player* player)
+    {
+        uint32 freeSlots = 0;
+
+        // Backpack (Bolsa principal 0, slots 0 al 18)
+        for (uint8 i = INVENTORY_SLOT_ITEM_START; i < INVENTORY_SLOT_ITEM_END; ++i)
+        {
+            if (!player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+                ++freeSlots;
+        }
+
+        // Bolsas equipadas (Slots 19 al 22)
+        for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
+        {
+            if (Bag* bag = player->GetBagByPos(i))
+            {
+                for (uint32 j = 0; j < bag->GetBagSize(); ++j)
+                {
+                    if (!player->GetItemByPos(i, j))
+                        ++freeSlots;
+                }
+            }
+        }
+
+        ALE::Push(L, freeSlots);
+        return 1;
+    }
+
+    /**
+     * Returns the number of free slots in the [Player]'s bank (main bank and bank bags).
+     *
+     * @return uint32 freeSlots
+     */
+    int GetBankFreeSlots(lua_State* L, Player* player)
+    {
+        uint32 freeSlots = 0;
+
+        for (uint8 i = BANK_SLOT_ITEM_START; i < BANK_SLOT_ITEM_END; ++i)
+        {
+            if (!player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+                ++freeSlots;
+        }
+
+        for (uint8 i = BANK_SLOT_BAG_START; i < BANK_SLOT_BAG_END; ++i)
+        {
+            if (Bag* bag = player->GetBagByPos(i))
+            {
+                for (uint32 j = 0; j < bag->GetBagSize(); ++j)
+                {
+                    if (!player->GetItemByPos(i, j))
+                        ++freeSlots;
+                }
+            }
+        }
+
+        ALE::Push(L, freeSlots);
+        return 1;
+    }
+
+
+    /**
      * Returns `true` if the [Player] has a Tank Specialization, `false` otherwise.
      *
      * @return bool HasTankSpec

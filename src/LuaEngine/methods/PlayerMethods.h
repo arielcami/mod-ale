@@ -325,14 +325,14 @@ namespace LuaPlayer
     {
         uint32 freeSlots = 0;
 
-        // Backpack (Bolsa principal 0, slots 0 al 18)
+        // Check backpack slots (INVENTORY_SLOT_ITEM_START to INVENTORY_SLOT_ITEM_END)
         for (uint8 i = INVENTORY_SLOT_ITEM_START; i < INVENTORY_SLOT_ITEM_END; ++i)
         {
             if (!player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
                 ++freeSlots;
         }
 
-        // Bolsas equipadas (Slots 19 al 22)
+        // Check equipped bags slots (INVENTORY_SLOT_BAG_START to INVENTORY_SLOT_BAG_END)
         for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
         {
             if (Bag* bag = player->GetBagByPos(i))
@@ -358,12 +358,14 @@ namespace LuaPlayer
     {
         uint32 freeSlots = 0;
 
+        // Check main bank slots (BANK_SLOT_ITEM_START to BANK_SLOT_ITEM_END)
         for (uint8 i = BANK_SLOT_ITEM_START; i < BANK_SLOT_ITEM_END; ++i)
         {
             if (!player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
                 ++freeSlots;
         }
 
+        // Check bank bags slots (BANK_SLOT_BAG_START to BANK_SLOT_BAG_END)
         for (uint8 i = BANK_SLOT_BAG_START; i < BANK_SLOT_BAG_END; ++i)
         {
             if (Bag* bag = player->GetBagByPos(i))

@@ -325,22 +325,14 @@ namespace LuaPlayer
     {
         uint32 freeSlots = 0;
 
-<<<<<<< HEAD
-        // Check backpack slots (INVENTORY_SLOT_ITEM_START to INVENTORY_SLOT_ITEM_END)
-=======
         // Backpack slots in INVENTORY_SLOT_BAG_0 (INVENTORY_SLOT_ITEM_START to INVENTORY_SLOT_ITEM_END)
->>>>>>> 73ccf27a343bf41575cbba03d7e73ff9c19763fc
         for (uint8 i = INVENTORY_SLOT_ITEM_START; i < INVENTORY_SLOT_ITEM_END; ++i)
         {
             if (!player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
                 ++freeSlots;
         }
 
-<<<<<<< HEAD
         // Check equipped bags slots (INVENTORY_SLOT_BAG_START to INVENTORY_SLOT_BAG_END)
-=======
-        // Equipped bag slots (INVENTORY_SLOT_BAG_START to INVENTORY_SLOT_BAG_END)
->>>>>>> 73ccf27a343bf41575cbba03d7e73ff9c19763fc
         for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
         {
             if (Bag* bag = player->GetBagByPos(i))
